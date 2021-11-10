@@ -1,0 +1,88 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<pages:PopupPage 
+    xmlns="http://xamarin.com/schemas/2014/forms"
+    xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+    xmlns:pages="clr-namespace:Rg.Plugins.Popup.Pages;assembly=Rg.Plugins.Popup"
+    xmlns:animations="clr-namespace:Rg.Plugins.Popup.Animations;assembly=Rg.Plugins.Popup"
+    xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+    xmlns:Res="clr-namespace:ServiceProject2.Resources"
+    xmlns:Controls="clr-namespace:ServiceProject2.Controls"
+    xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+    xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+    xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+    x:Class="ServiceProject2.Views.ProviderPopup">
+    <!--You can set an animation in the xaml file or in the csharp code behind-->
+    <pages:PopupPage.Animation>
+        <animations:ScaleAnimation 
+            PositionIn="Center"
+            PositionOut="Center"
+            ScaleIn="1.2"
+            ScaleOut="0.8"
+            DurationIn="400"
+            DurationOut="300"
+            EasingIn="SinOut"
+            EasingOut="SinIn"
+            HasBackgroundAnimation="True"/>
+    </pages:PopupPage.Animation>
+    <!--You can use any elements here which are extended from Xamarin.Forms.View-->
+    <yummy:PancakeView Padding="20" BackgroundColor="WhiteSmoke" Margin="10" HasShadow="True" 
+     CornerRadius="40" IsClippedToBounds="true" HorizontalOptions="Center"
+        VerticalOptions="EndAndExpand" HeightRequest="450" WidthRequest="300">
+        <Grid RowSpacing="20" HorizontalOptions="FillAndExpand" VerticalOptions="FillAndExpand">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+            <Label HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Style="{StaticResource lblBigTitle}" Text="{Binding SelectedProvider.ServiceName}"></Label>
+
+            <ffimageloading:CachedImage Grid.Row="1"
+			     WidthRequest="80" HeightRequest="100"
+			     DownsampleToViewSize="true" FadeAnimationEnabled="True" 
+			     Source = "{Binding SelectedProvider.ImageName}" LoadingPlaceholder="default_dr.png">
+                <ffimageloading:CachedImage.Transformations>
+                    <fftransformations:CircleTransformation />
+                </ffimageloading:CachedImage.Transformations>
+            </ffimageloading:CachedImage>
+
+            <Label HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Grid.Row="2" Style="{StaticResource lblTitle}" Text="{Binding SelectedProvider.ProviderName}"></Label>
+
+            <rating:SfRating  Grid.Row="3" HorizontalOptions="Center" Precision="Half" ItemCount="5" 
+              ReadOnly="true" ItemSize="20" Value="{Binding SelectedProvider.Rating}" >
+                <rating:SfRating.RatingSettings>
+                    <rating:SfRatingSettings RatedFill="Gold" UnRatedFill="Gray" />
+                </rating:SfRating.RatingSettings>
+            </rating:SfRating>
+
+            <Grid RowSpacing="10" Grid.Row="4">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition></ColumnDefinition>
+                    <ColumnDefinition></ColumnDefinition>
+                </Grid.ColumnDefinitions>
+                <Label  Text="{Res:Translate lblCost}"></Label>
+                <Label Grid.Column="1" Style="{StaticResource lblValueSpecial}" Text="{Binding SelectedProvider.ServiceCost}"></Label>
+
+                <Label Grid.Row="1" Text="{Res:Translate lblCity}"></Label>
+                <Label Grid.Row="1" Grid.Column="1" Style="{StaticResource lblValueNormal}" Text="giza"></Label>
+
+                <Label Grid.Row="2" Text="{Res:Translate lblArea}"></Label>
+                <Label Grid.Row="2" Grid.Column="1" Text="Shekh zaied" Style="{StaticResource lblValueNormal}"></Label>
+            </Grid>
+
+            <StackLayout Grid.Row="6" Orientation="Horizontal">
+                <Button Grid.Row="3" Text="{Res:Translate btnRequest}" Command="{Binding RequestService}"></Button>
+
+                <Button Grid.Row="3" Grid.Column="1" Style="{StaticResource btnSecandry}" Text="{Res:Translate btnDiscard}"></Button>
+            </StackLayout>
+        </Grid>
+        </yummy:PancakeView>
+</pages:PopupPage>

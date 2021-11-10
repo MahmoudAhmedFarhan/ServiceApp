@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<Controls:CustomPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Controls="clr-namespace:ServiceProject2.Controls"
+             xmlns:Res="clr-namespace:ServiceProject2.Resources"
+                     xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+                     xmlns:fftransformations="clr-namespace:FFImageLoading.Transformations;assembly=FFImageLoading.Transformations"
+                     xmlns:rating="clr-namespace:Syncfusion.SfRating.XForms;assembly=Syncfusion.SfRating.XForms"
+                     mc:Ignorable="d"
+             Title="{Res:Translate lblRequestService}"
+             x:Name="Page"
+             x:Class="ServiceProject2.Views.RequestPage">
+    <ContentPage.Content>
+        <Grid BackgroundColor="LightGray">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="auto"></RowDefinition>
+                <RowDefinition Height="*"></RowDefinition>
+                <RowDefinition Height="auto"></RowDefinition>
+            </Grid.RowDefinitions>
+
+            <Controls:ToolBar BindingContext="{x:Reference Page}" x:Name="toolbar" Title="{Binding Title}"></Controls:ToolBar>
+
+            <ScrollView Grid.Row="1">
+                <Grid Grid.Row="1" Padding="10" RowSpacing="10">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                    <RowDefinition Height="*"></RowDefinition>
+                    <RowDefinition Height="auto"></RowDefinition>
+                </Grid.RowDefinitions>
+                <Label HorizontalOptions="CenterAndExpand" HorizontalTextAlignment="Center" Style="{StaticResource lblBigTitle}"
+            Text="{Binding SelectedProvider.ServiceName}"/>
+
+                <ffimageloading:CachedImage Grid.Row="1"
+			                                    WidthRequest="80" HeightRequest="100"
+			                                    DownsampleToViewSize="true" FadeAnimationEnabled="True" 
+			                                    Source = "{Binding SelectedProvider.ImageName}" LoadingPlaceholder="default_dr.png">
+                    <ffimageloading:CachedImage.Transformations>
+                        <fftransformations:CircleTransformation />
+                    </ffimageloading:CachedImage.Transformations>
+                </ffimageloading:CachedImage>
+
+                <Label HorizontalOptions="Center" HorizontalTextAlignment="Center" Grid.Row="2" Style="{StaticResource lblTitle}"
+            Text="{Binding SelectedProvider.ProviderName}"/>
+
+                <rating:SfRating  Grid.Row="3" HorizontalOptions="Center" Precision="Half" ItemCount="5" 
+              ReadOnly="true" ItemSize="20" Value="{Binding SelectedProvider.Rating}" >
+                    <rating:SfRating.RatingSettings>
+                        <rating:SfRatingSettings RatedFill="Gold" UnRatedFill="Gray" />
+                    </rating:SfRating.RatingSettings>
+                </rating:SfRating>
+
+                <Grid Grid.Row="4" RowSpacing="15" Padding="10">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                        <RowDefinition Height="auto"></RowDefinition>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition></ColumnDefinition>
+                        <ColumnDefinition></ColumnDefinition>
+                    </Grid.ColumnDefinitions>
+                    <Label Text="{Res:Translate lblCost}"></Label>
+                    <Label Grid.Column="1"  HorizontalOptions="End" Style="{StaticResource lblValueSpecial}" Text="{Binding SelectedProvider.ServiceCost}"></Label>
+
+                    <Entry Grid.Row="2" Grid.ColumnSpan="2" Keyboard="Numeric" Text="{Binding Qty}" Placeholder="{Res:Translate lblQty}"></Entry>
+
+                    <Editor Grid.Row="3" Grid.ColumnSpan="2" Text="{Binding Description}" Placeholder="{Res:Translate lblDescription}"></Editor>
+
+                    <Button Clicked="Button_Clicked" Grid.Row="4" Text="{Res:Translate lblPicImage}"></Button>
+
+                    <Image x:Name="image" Grid.Row="5" HeightRequest="100"></Image>
+                </Grid>
+                <StackLayout Grid.Row="6" Orientation="Horizontal">
+                    <Button Text="{Res:Translate btnRequest}" Command="{Binding RequestService}"></Button>
+                </StackLayout>
+            </Grid>
+            </ScrollView>
+        </Grid>
+    </ContentPage.Content>
+</Controls:CustomPage>

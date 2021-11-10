@@ -1,0 +1,29 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<StackLayout xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:Helpers="clr-namespace:ServiceProject2.Helpers"
+             xmlns:yummy="clr-namespace:Xamarin.Forms.PancakeView;assembly=Xamarin.Forms.PancakeView"
+             mc:Ignorable="d"
+             x:Class="ServiceProject2.Controls.ToolBar">
+    <yummy:PancakeView HasShadow="True" IsClippedToBounds="true" HorizontalOptions="FillAndExpand">
+        <Grid Style="{StaticResource HeaderStyle}">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+                <ColumnDefinition Width="*"></ColumnDefinition>
+                <ColumnDefinition Width="60"></ColumnDefinition>
+            </Grid.ColumnDefinitions>
+
+            <Image x:Name="imgBack" Source="{Helpers:ImageResource ServiceProject2.Images.left_arrow.png}">
+                <Image.GestureRecognizers>
+                    <TapGestureRecognizer Tapped="TapGestureRecognizer_Tapped"></TapGestureRecognizer>
+                </Image.GestureRecognizers>
+            </Image>
+
+            <Label x:Name="lblTitle" Grid.Column="1" Text="Welcome to Xamarin.Forms!"
+                VerticalOptions="CenterAndExpand" Style="{StaticResource lblHeaderText}"
+                HorizontalOptions="CenterAndExpand" />
+        </Grid>
+    </yummy:PancakeView>
+</StackLayout>

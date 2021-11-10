@@ -1,0 +1,496 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ServicesModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="TbPages">
+          <Key>
+            <PropertyRef Name="PageId" />
+          </Key>
+          <Property Name="PageId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="PageTtitle" Type="nvarchar" MaxLength="100" Nullable="false" />
+          <Property Name="PageDescirption" Type="nvarchar" MaxLength="500" Nullable="false" />
+          <Property Name="PageContent" Type="nvarchar(max)" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TbProviders">
+          <Key>
+            <PropertyRef Name="ProvicderId" />
+          </Key>
+          <Property Name="ProvicderId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Lat" Type="float" Nullable="false" />
+          <Property Name="Long" Type="float" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="200" />
+          <Property Name="Rating" Type="float" />
+        </EntityType>
+        <EntityType Name="TbRequests">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="RequestDate" Type="datetime" Nullable="false" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <EntityType Name="TbServiceProviders">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="ServiceCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TbServices">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ServiceNameAr" Type="nvarchar" MaxLength="200" />
+          <Property Name="ServiceIcon" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Services.dbo.VwRequests' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VwRequests">
+          <Key>
+            <PropertyRef Name="ProvicderId" />
+            <PropertyRef Name="ProviderName" />
+            <PropertyRef Name="ServiceName" />
+            <PropertyRef Name="ServiceCost" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="Cost" />
+          </Key>
+          <Property Name="ProvicderId" Type="int" Nullable="false" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ServiceCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="RequestId" Type="int" Nullable="false" />
+          <Property Name="ProviderId" Type="int" Nullable="false" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="RequestDate" Type="datetime" Nullable="false" />
+          <Property Name="Qty" Type="float" Nullable="false" />
+          <Property Name="Cost" Type="decimal" Precision="8" Scale="2" Nullable="false" />
+          <Property Name="Description" Type="nvarchar(max)" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ServiceNameAr" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Services.dbo.VwServiceProviders' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VwServiceProviders">
+          <Key>
+            <PropertyRef Name="ProvicderId" />
+            <PropertyRef Name="ProviderName" />
+            <PropertyRef Name="Lat" />
+            <PropertyRef Name="Long" />
+            <PropertyRef Name="ServiceCost" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ServiceName" />
+          </Key>
+          <Property Name="ProvicderId" Type="int" Nullable="false" />
+          <Property Name="ProviderName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="Description" Type="nvarchar" MaxLength="500" />
+          <Property Name="Lat" Type="float" Nullable="false" />
+          <Property Name="Long" Type="float" Nullable="false" />
+          <Property Name="ServiceCost" Type="decimal" Precision="10" Scale="2" Nullable="false" />
+          <Property Name="ServiceId" Type="int" Nullable="false" />
+          <Property Name="ImageName" Type="nvarchar" MaxLength="200" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ServiceIcon" Type="nvarchar" MaxLength="200" />
+          <Property Name="Rating" Type="float" />
+        </EntityType>
+        <!--Errors Found During Generation:
+warning 6002: The table/view 'Services.dbo.VwServics' does not have a primary key defined. The key has been inferred and the definition was created as a read-only table/view.-->
+        <EntityType Name="VwServics">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ServiceName" />
+          </Key>
+          <Property Name="ServiceId" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ServiceName" Type="nvarchar" MaxLength="200" Nullable="false" />
+          <Property Name="ServiceIcon" Type="nvarchar" MaxLength="200" />
+          <Property Name="ServiceNameAr" Type="nvarchar" MaxLength="200" />
+        </EntityType>
+        <Association Name="FK_TbServiceProviders_TbProviders">
+          <End Role="TbProviders" Type="Self.TbProviders" Multiplicity="1" />
+          <End Role="TbServiceProviders" Type="Self.TbServiceProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbProviders">
+              <PropertyRef Name="ProvicderId" />
+            </Principal>
+            <Dependent Role="TbServiceProviders">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_TbServiceProviders_TbServices">
+          <End Role="TbServices" Type="Self.TbServices" Multiplicity="1" />
+          <End Role="TbServiceProviders" Type="Self.TbServiceProviders" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbServices">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="TbServiceProviders">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ServicesModelStoreContainer">
+          <EntitySet Name="TbPages" EntityType="Self.TbPages" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbProviders" EntityType="Self.TbProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbRequests" EntityType="Self.TbRequests" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbServiceProviders" EntityType="Self.TbServiceProviders" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TbServices" EntityType="Self.TbServices" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="VwRequests" EntityType="Self.VwRequests" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VwRequests].[ProvicderId] AS [ProvicderId], 
+    [VwRequests].[ProviderName] AS [ProviderName], 
+    [VwRequests].[ServiceName] AS [ServiceName], 
+    [VwRequests].[ServiceCost] AS [ServiceCost], 
+    [VwRequests].[RequestId] AS [RequestId], 
+    [VwRequests].[ProviderId] AS [ProviderId], 
+    [VwRequests].[ServiceId] AS [ServiceId], 
+    [VwRequests].[RequestDate] AS [RequestDate], 
+    [VwRequests].[Qty] AS [Qty], 
+    [VwRequests].[Cost] AS [Cost], 
+    [VwRequests].[Description] AS [Description], 
+    [VwRequests].[ImageName] AS [ImageName], 
+    [VwRequests].[ServiceNameAr] AS [ServiceNameAr]
+    FROM [dbo].[VwRequests] AS [VwRequests]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VwServiceProviders" EntityType="Self.VwServiceProviders" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VwServiceProviders].[ProvicderId] AS [ProvicderId], 
+    [VwServiceProviders].[ProviderName] AS [ProviderName], 
+    [VwServiceProviders].[Description] AS [Description], 
+    [VwServiceProviders].[Lat] AS [Lat], 
+    [VwServiceProviders].[Long] AS [Long], 
+    [VwServiceProviders].[ServiceCost] AS [ServiceCost], 
+    [VwServiceProviders].[ServiceId] AS [ServiceId], 
+    [VwServiceProviders].[ImageName] AS [ImageName], 
+    [VwServiceProviders].[ServiceName] AS [ServiceName], 
+    [VwServiceProviders].[ServiceIcon] AS [ServiceIcon], 
+    [VwServiceProviders].[Rating] AS [Rating]
+    FROM [dbo].[VwServiceProviders] AS [VwServiceProviders]</DefiningQuery>
+          </EntitySet>
+          <EntitySet Name="VwServics" EntityType="Self.VwServics" store:Type="Views" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [VwServics].[ServiceId] AS [ServiceId], 
+    [VwServics].[ServiceName] AS [ServiceName], 
+    [VwServics].[ServiceIcon] AS [ServiceIcon], 
+    [VwServics].[ServiceNameAr] AS [ServiceNameAr]
+    FROM [dbo].[VwServics] AS [VwServics]</DefiningQuery>
+          </EntitySet>
+          <AssociationSet Name="FK_TbServiceProviders_TbProviders" Association="Self.FK_TbServiceProviders_TbProviders">
+            <End Role="TbProviders" EntitySet="TbProviders" />
+            <End Role="TbServiceProviders" EntitySet="TbServiceProviders" />
+          </AssociationSet>
+          <AssociationSet Name="FK_TbServiceProviders_TbServices" Association="Self.FK_TbServiceProviders_TbServices">
+            <End Role="TbServices" EntitySet="TbServices" />
+            <End Role="TbServiceProviders" EntitySet="TbServiceProviders" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ServicesModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="TbProvider">
+          <Key>
+            <PropertyRef Name="ProvicderId" />
+          </Key>
+          <Property Name="ProvicderId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <Property Name="Long" Type="Double" Nullable="false" />
+          <NavigationProperty Name="TbServiceProviders" Relationship="Self.FK_TbServiceProviders_TbProviders" FromRole="TbProviders" ToRole="TbServiceProviders" />
+          <Property Name="ImageName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Double" />
+        </EntityType>
+        <EntityType Name="TbServiceProvider">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ProviderId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceCost" Type="Decimal" Precision="10" Scale="2" Nullable="false" />
+          <NavigationProperty Name="TbProvider" Relationship="Self.FK_TbServiceProviders_TbProviders" FromRole="TbServiceProviders" ToRole="TbProviders" />
+          <NavigationProperty Name="TbService" Relationship="ServicesModel.FK_TbServiceProviders_TbServices" FromRole="TbServiceProvider" ToRole="TbService" />
+        </EntityType>
+        <Association Name="FK_TbServiceProviders_TbProviders">
+          <End Role="TbProviders" Type="Self.TbProvider" Multiplicity="1" />
+          <End Role="TbServiceProviders" Type="Self.TbServiceProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbProviders">
+              <PropertyRef Name="ProvicderId" />
+            </Principal>
+            <Dependent Role="TbServiceProviders">
+              <PropertyRef Name="ProviderId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="ServicesEntities" annotation:LazyLoadingEnabled="false">
+          <EntitySet Name="TbProviders" EntityType="Self.TbProvider" />
+          <EntitySet Name="TbServiceProviders" EntityType="Self.TbServiceProvider" />
+          <AssociationSet Name="FK_TbServiceProviders_TbProviders" Association="Self.FK_TbServiceProviders_TbProviders">
+            <End Role="TbProviders" EntitySet="TbProviders" />
+            <End Role="TbServiceProviders" EntitySet="TbServiceProviders" />
+          </AssociationSet>
+          <EntitySet Name="TbPages" EntityType="ServicesModel.TbPage" />
+          <EntitySet Name="VwServiceProviders" EntityType="ServicesModel.VwServiceProvider" />
+          <EntitySet Name="TbServices" EntityType="ServicesModel.TbService" />
+          <AssociationSet Name="FK_TbServiceProviders_TbServices" Association="ServicesModel.FK_TbServiceProviders_TbServices">
+            <End Role="TbService" EntitySet="TbServices" />
+            <End Role="TbServiceProvider" EntitySet="TbServiceProviders" />
+          </AssociationSet>
+          <EntitySet Name="VwServics" EntityType="ServicesModel.VwServic" />
+          <EntitySet Name="VwRequests" EntityType="ServicesModel.VwRequest" />
+          <EntitySet Name="TbRequests" EntityType="ServicesModel.TbRequest" />
+        </EntityContainer>
+        <EntityType Name="TbPage">
+          <Key>
+            <PropertyRef Name="PageId" />
+          </Key>
+          <Property Name="PageId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="PageTtitle" Type="String" Nullable="false" MaxLength="100" FixedLength="false" Unicode="true" />
+          <Property Name="PageDescirption" Type="String" Nullable="false" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="PageContent" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VwServiceProvider">
+          <Key>
+            <PropertyRef Name="ProvicderId" />
+            <PropertyRef Name="ProviderName" />
+            <PropertyRef Name="Lat" />
+            <PropertyRef Name="Long" />
+            <PropertyRef Name="ServiceCost" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ServiceName" />
+          </Key>
+          <Property Name="ProvicderId" Type="Int32" Nullable="false" />
+          <Property Name="ProviderName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Description" Type="String" MaxLength="500" FixedLength="false" Unicode="true" />
+          <Property Name="Lat" Type="Double" Nullable="false" />
+          <Property Name="Long" Type="Double" Nullable="false" />
+          <Property Name="ServiceCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="ImageName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="Rating" Type="Double" />
+        </EntityType>
+        <EntityType Name="TbService">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceNameAr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="TbServiceProviders" Relationship="ServicesModel.FK_TbServiceProviders_TbServices" FromRole="TbService" ToRole="TbServiceProvider" />
+        </EntityType>
+        <Association Name="FK_TbServiceProviders_TbServices">
+          <End Type="ServicesModel.TbService" Role="TbService" Multiplicity="1" />
+          <End Type="ServicesModel.TbServiceProvider" Role="TbServiceProvider" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TbService">
+              <PropertyRef Name="ServiceId" />
+            </Principal>
+            <Dependent Role="TbServiceProvider">
+              <PropertyRef Name="ServiceId" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="VwServic">
+          <Key>
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="ServiceName" />
+          </Key>
+          <Property Name="ServiceId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceIcon" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceNameAr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="VwRequest">
+          <Key>
+            <PropertyRef Name="ProvicderId" />
+            <PropertyRef Name="ProviderName" />
+            <PropertyRef Name="ServiceName" />
+            <PropertyRef Name="ServiceCost" />
+            <PropertyRef Name="RequestId" />
+            <PropertyRef Name="ProviderId" />
+            <PropertyRef Name="ServiceId" />
+            <PropertyRef Name="RequestDate" />
+            <PropertyRef Name="Qty" />
+            <PropertyRef Name="Cost" />
+          </Key>
+          <Property Name="ProvicderId" Type="Int32" Nullable="false" />
+          <Property Name="ProviderName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceName" Type="String" Nullable="false" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceCost" Type="Decimal" Nullable="false" Precision="10" Scale="2" />
+          <Property Name="RequestId" Type="Int32" Nullable="false" />
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+          <Property Name="ServiceNameAr" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="TbRequest">
+          <Key>
+            <PropertyRef Name="RequestId" />
+          </Key>
+          <Property Name="RequestId" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ProviderId" Type="Int32" Nullable="false" />
+          <Property Name="ServiceId" Type="Int32" Nullable="false" />
+          <Property Name="RequestDate" Type="DateTime" Nullable="false" Precision="3" />
+          <Property Name="Qty" Type="Double" Nullable="false" />
+          <Property Name="Cost" Type="Decimal" Nullable="false" Precision="8" Scale="2" />
+          <Property Name="Description" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ImageName" Type="String" MaxLength="200" FixedLength="false" Unicode="true" />
+        </EntityType>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ServicesModelStoreContainer" CdmEntityContainer="ServicesEntities">
+          <EntitySetMapping Name="TbProviders">
+            <EntityTypeMapping TypeName="ServicesModel.TbProvider">
+              <MappingFragment StoreEntitySet="TbProviders">
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ProvicderId" ColumnName="ProvicderId" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbServiceProviders">
+            <EntityTypeMapping TypeName="ServicesModel.TbServiceProvider">
+              <MappingFragment StoreEntitySet="TbServiceProviders">
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbPages">
+            <EntityTypeMapping TypeName="ServicesModel.TbPage">
+              <MappingFragment StoreEntitySet="TbPages">
+                <ScalarProperty Name="PageContent" ColumnName="PageContent" />
+                <ScalarProperty Name="PageDescirption" ColumnName="PageDescirption" />
+                <ScalarProperty Name="PageTtitle" ColumnName="PageTtitle" />
+                <ScalarProperty Name="PageId" ColumnName="PageId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VwServiceProviders">
+            <EntityTypeMapping TypeName="ServicesModel.VwServiceProvider">
+              <MappingFragment StoreEntitySet="VwServiceProviders">
+                <ScalarProperty Name="Rating" ColumnName="Rating" />
+                <ScalarProperty Name="ServiceIcon" ColumnName="ServiceIcon" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+                <ScalarProperty Name="Long" ColumnName="Long" />
+                <ScalarProperty Name="Lat" ColumnName="Lat" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="ProvicderId" ColumnName="ProvicderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbServices">
+            <EntityTypeMapping TypeName="ServicesModel.TbService">
+              <MappingFragment StoreEntitySet="TbServices">
+                <ScalarProperty Name="ServiceIcon" ColumnName="ServiceIcon" />
+                <ScalarProperty Name="ServiceNameAr" ColumnName="ServiceNameAr" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VwServics">
+            <EntityTypeMapping TypeName="ServicesModel.VwServic">
+              <MappingFragment StoreEntitySet="VwServics">
+                <ScalarProperty Name="ServiceNameAr" ColumnName="ServiceNameAr" />
+                <ScalarProperty Name="ServiceIcon" ColumnName="ServiceIcon" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="VwRequests">
+            <EntityTypeMapping TypeName="ServicesModel.VwRequest">
+              <MappingFragment StoreEntitySet="VwRequests">
+                <ScalarProperty Name="ServiceNameAr" ColumnName="ServiceNameAr" />
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+                <ScalarProperty Name="ServiceCost" ColumnName="ServiceCost" />
+                <ScalarProperty Name="ServiceName" ColumnName="ServiceName" />
+                <ScalarProperty Name="ProviderName" ColumnName="ProviderName" />
+                <ScalarProperty Name="ProvicderId" ColumnName="ProvicderId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TbRequests">
+            <EntityTypeMapping TypeName="ServicesModel.TbRequest">
+              <MappingFragment StoreEntitySet="TbRequests">
+                <ScalarProperty Name="ImageName" ColumnName="ImageName" />
+                <ScalarProperty Name="Description" ColumnName="Description" />
+                <ScalarProperty Name="Cost" ColumnName="Cost" />
+                <ScalarProperty Name="Qty" ColumnName="Qty" />
+                <ScalarProperty Name="RequestDate" ColumnName="RequestDate" />
+                <ScalarProperty Name="ServiceId" ColumnName="ServiceId" />
+                <ScalarProperty Name="ProviderId" ColumnName="ProviderId" />
+                <ScalarProperty Name="RequestId" ColumnName="RequestId" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="true" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
